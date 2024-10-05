@@ -1,11 +1,12 @@
 from rest_framework import serializers
 from .models import Profile
+from django.contrib.auth.models import User
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
+    user = serializers.ReadOnlyField(source='user.username')
 
-    is_owner =serializers.SerializerMethodField()
+    is_user =serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -14,5 +15,12 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model= Profile
         fields =[
-            'id', 'owner', 'name','email','password','image', 'is_owner', 
+            'id', 'user', 'username','email','password','image', 'is_user','confirm_password' 
         ]
+
+    def validate_username(self, value):
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError('The username is already taken')
+        return value
+    
+  

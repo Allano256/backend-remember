@@ -3,8 +3,8 @@ from .models import Activity
 
 
 class Activityserializer(serializers.ModelSerializer):
-    owner=serializers.ReadOnlyField(source='owner.usernameusername')
-    is_owner= serializers.SerializerMethodField()
+    user=serializers.ReadOnlyField(source='user.username')
+    is_user= serializers.SerializerMethodField()
    
 
     def get_is_owner(self, obj):
@@ -15,7 +15,7 @@ class Activityserializer(serializers.ModelSerializer):
     class Meta:
         model= Activity
         fields =[
-            'city_name','date','notes','is_owner','owner'
+            'city_name','date','notes','is_user','user'
         ]
 
 
