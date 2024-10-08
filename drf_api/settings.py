@@ -67,14 +67,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'cloudinary_storage',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'knox',
 
     'rest_framework.authtoken',
     'dj_rest_auth',
 
     'django.contrib.sites',
+  
+    'rest_auth.registration',
     'allauth',
     'allauth.account',
-    'rest_auth.registration',
   
 
 
@@ -90,6 +93,11 @@ INSTALLED_APPS = [
   
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',  # Default backend
+    'allauth.account.auth_backends.AuthenticationBackend',  # Allauth backend
+)
+
 SITE_ID = 1
 
 MIDDLEWARE = [
@@ -102,7 +110,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
      
-     'allauth.account.middleware.AccountMiddleware',
+ "allauth.account.middleware.AccountMiddleware",
   
   
 ]
