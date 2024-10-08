@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 
 class CurrentUserSerializer(UserDetailsSerializer):
-    profile_id = serializers.ReadOnlyField(source='username')
+    username = serializers.ReadOnlyField()
     
 
     class Meta(UserDetailsSerializer.Meta):

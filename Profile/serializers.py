@@ -1,6 +1,7 @@
 from rest_framework import serializers
-# from .models import Profile
+
 from django.contrib.auth.models import User
+from dj_rest_auth.serializers import LoginSerializer
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -21,7 +22,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             return data
 
     def create(self, validated_data):
-        # Remove password2 from the validated_data
+       
         validated_data.pop('password2')
         
         # Create the user
@@ -30,9 +31,21 @@ class ProfileSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
            
         )
-        user.set_password(validated_data['password'])  # Set the password
-        user.save()  # Save the user to the database
+        user.set_password(validated_data['password'])  
+        user.save()  
         return user
+    
+
+class CustomLoginSerializer(LoginSerializer):
+    def validate(self, attrs):
+        username=attrs.get('username')
+        password= attrs.get('password')
+
+        if not username and not password:
+            raise serializers.ValidationError('Please provide valid username and password')
+        
+        return super().validate(attrs)
+
 
 
 
