@@ -14,6 +14,7 @@ from dj_rest_auth.views import LoginView
 
 class CustomLoginView(LoginView):
     serializer_class= CustomLoginSerializer
+    permission_classes=[IsOwnerOrReadOnly]
 
 
 

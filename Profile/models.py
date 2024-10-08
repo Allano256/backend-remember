@@ -14,16 +14,6 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 
 
-
-
-
-
-
-
-
-
-
-
 class Profile(models.Model):
 
     user= models.OneToOneField(User, on_delete=models.CASCADE)

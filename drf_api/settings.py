@@ -89,7 +89,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'Profile',
-    'Activity',
+    'City',
   
 ]
 

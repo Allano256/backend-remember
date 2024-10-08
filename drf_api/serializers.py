@@ -4,7 +4,9 @@ from rest_framework import serializers
 
 class CurrentUserSerializer(UserDetailsSerializer):
     username = serializers.ReadOnlyField()
+    first_name = serializers.ReadOnlyField()
     
 
     class Meta(UserDetailsSerializer.Meta):
-         fields = UserDetailsSerializer.Meta.fields + ('username',)
+          fields = ('pk', 'username', 'password', 'first_name' ) 
+        
