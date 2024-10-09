@@ -12,17 +12,25 @@ from .models import City
 from .serializers import Cityserializer
 from rest_framework.permissions import IsAuthenticated
 
+from rest_framework.authentication import TokenAuthentication
+
+
 
 class CityListCreateView(generics.ListCreateAPIView):
     queryset=City.objects.all()
     serializer_class=Cityserializer
-    permission_classes=[permissions.IsAuthenticatedOrReadOnly]
+    permission_classes=[IsAuthenticated]
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    
 
 
 class CityDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset=City.objects.all()
     serializer_class=Cityserializer
-    permission_classes= [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes= [IsAuthenticated]
 
 
 

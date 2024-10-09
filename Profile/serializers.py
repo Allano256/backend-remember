@@ -10,7 +10,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     class Meta:
         model=User
-        fields =['username', 'email', 'password', 'password2', 'first_name']
+        fields =['username', 'email', 'password', 'password2', ]
         extra_kwargs={
             'password': {'write_only':True}
         }
@@ -29,7 +29,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         user = User(
             username=validated_data['username'],
             email=validated_data['email'],
-            first_name=validated_data['first_name'],
+           
            
         )
         user.set_password(validated_data['password'])  

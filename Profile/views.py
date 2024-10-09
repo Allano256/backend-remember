@@ -10,6 +10,8 @@ from rest_framework.authtoken.models import  Token
 
 
 from dj_rest_auth.views import LoginView
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view, permission_classes
 
 
 class CustomLoginView(LoginView):
@@ -17,9 +19,8 @@ class CustomLoginView(LoginView):
     permission_classes=[IsOwnerOrReadOnly]
 
 
-
-
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def user_registration_view(request):
     if request.method=='POST':
         serializer=ProfileSerializer(data= request.data)
@@ -54,44 +55,3 @@ def user_logout(request):
 
 
 
-
-# class ProfileList(APIView):
-#     def get(self,request):
-#         profiles=Profile.objects.all()
-#         serializer= ProfileSerializer(profiles, many=True, context={'request': request})
-#         return Response(serializer.data)
-
-
-# class ProfileDetail(APIView):
-#     serializer_class=ProfileSerializer
-#     permission_classes=[IsOwnerOrReadOnly]
-#     def get_object(self, pk):
-#         try:
-#             profile= Profile.objects.get(pk=pk)
-#             self.check_object_permissions(self.request, profile)
-#             return profile
-#         except Profile.DoesNotExist:
-#             raise Http404
-        
-#     def get(self, request, pk):
-#         profile=self.get_object(pk)
-#         serializer= ProfileSerializer(profile,  context={'request': request})
-#         return Response(serializer.data)
-    
-#     def put(self,request,pk):
-#         profile=self.get_object(pk)
-#         serializer=ProfileSerializer(profile, data=request.data,  context={'request': request})
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-
-
-# class ProfileCreate(APIView):
-#     def post(self, request, *args, **kwargs):
-#         serializer = ProfileSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

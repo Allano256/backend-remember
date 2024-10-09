@@ -32,7 +32,13 @@ REST_FRAMEWORK ={
         'rest_framework.authentication.SessionAuthentication'
         if 'DEV' in os.environ 
         else 'dj_rest-auth.jwt_auth.JWTCookieAuthentication'
-    )]
+    )],
+
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+
+
 }
 
 REST_USE_JWT = True
@@ -68,7 +74,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'rest_framework',
-    'knox',
+   
 
     'rest_framework.authtoken',
     'dj_rest_auth',
@@ -84,7 +90,6 @@ INSTALLED_APPS = [
     'cloudinary',
 
   
-      
 
     'corsheaders',
 
@@ -103,9 +108,12 @@ SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+
     'django.middleware.csrf.CsrfViewMiddleware',
+
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -114,6 +122,8 @@ MIDDLEWARE = [
   
   
 ]
+
+
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -131,6 +141,16 @@ CORS_ALLOW_METHODS = [
     'OPTIONS',
 ]
 CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_HEADERS =[
+    'Authorization',
+    'content-type',
+    'x-csrftoken',
+    'accept',
+    'origin',
+    'user-agent',
+    'x-requested-with',
+]
 
 
 ROOT_URLCONF = 'drf_api.urls'
