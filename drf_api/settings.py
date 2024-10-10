@@ -60,7 +60,7 @@ SECRET_KEY = 'django-insecure-82d$ep@0ry#yn^*fn(__@!ylu$rdj7a*2l8ot25ika)gv9yd4y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ '8000-allano256-backendrememb-dul3cye1f44.ws.codeinstitute-ide.net']
 
 
 # Application definition
@@ -106,32 +106,32 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-
     'django.middleware.csrf.CsrfViewMiddleware',
-
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-     
- "allauth.account.middleware.AccountMiddleware",
-  
-  
 ]
 
 
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOWED_ORIGINS = [
+
+if 'CLIENT_ORIGIN' in os.environ:
+   CORS_ALLOWED_ORIGINS=[os.environ.get('CLIENT_ORIGIN')]
+if 'CLIENT_ORIGIN_DEV' in os.environ:
+   CORS_ALLOWED_ORIGINS_REGEXES= [r"^https://.*\.codeinstitute-ide\.net$",]
+
+
+# CORS_ALLOWED_ORIGINS = [
     
-    "http://localhost:5173",  # Frontend (React, for example)
-    "http://127.0.0.1:8000",  # Backend
-]
+#     "http://localhost:5173",  
+#     "http://127.0.0.1:8000", 
+# ]
 CORS_ALLOW_METHODS = [
     'GET',
     'POST',
