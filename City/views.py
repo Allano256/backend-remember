@@ -24,16 +24,10 @@ class CityListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-    
-
-
 class CityDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset=City.objects.all()
     serializer_class=Cityserializer
     permission_classes= [IsAuthenticated]
-
-
-
 
 
 # # Create your views here.
